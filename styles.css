@@ -747,6 +747,17 @@ img.fade-in {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
 
+    .filter-btn {
+        background: none;
+        border: none;
+        padding: 0.5rem 0.5rem;
+        margin: 0.25rem;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+    }
+
     .value-item {
         flex-basis: 100%;
     }

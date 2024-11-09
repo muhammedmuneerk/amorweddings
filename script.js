@@ -31,9 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-
-
-    // Portfolio filtering and gallery //
+    // Portfolio filtering and gallery
     const portfolioGrid = document.querySelector('.portfolio-grid');
     const galleryModal = document.getElementById('gallery-modal');
     const galleryImage = document.getElementById('gallery-image');
@@ -41,14 +39,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeModal = document.querySelector('.close-modal');
     const prevBtn = document.querySelector('.prev-btn');
     const nextBtn = document.querySelector('.next-btn');
+    const loadingIndicator = document.getElementById('loading');
+    const loadMoreBtn = document.createElement('button');
+    loadMoreBtn.textContent = 'Load More';
+    loadMoreBtn.classList.add('cta-button', 'load-more-btn');
+    loadMoreBtn.style.display = 'none';
+    portfolioGrid.after(loadMoreBtn);
 
+    let page = 1;
+    let isLoading = false;
+    let hasMoreItems = true;
     let currentIndex = 0;
     let portfolioItems = [];
 
-    // Fetch portfolio items (replace with your actual data)
-    const fetchPortfolioItems = async () => {
-        // Simulated API call
-        return [
+    async function fetchPortfolioItems(page, filter = 'all') {
+        const itemsPerPage = 7;
+        const allItems = [
             { src: 'images/armorig-1.jpg', alt: 'Elegant Lace Gown', category: 'suits', caption: 'A timeless suits masterpiece' },
             { src: 'images/armorig-2.jpg', alt: 'Classic Tuxedo', category: 'suits', caption: 'Sophisticated style for the modern suits' },
             { src: 'images/armorig-3.jpg', alt: 'Romantic A-line Dress', category: 'suits', caption: 'Ethereal beauty for your special day' },
@@ -57,13 +63,24 @@ document.addEventListener('DOMContentLoaded', () => {
             { src: 'images/WhatsApp Image 2024-11-07 at 18.02.07_e4f03702.jpg', alt: 'Contemporary Suit', category: 'suits', caption: 'Bold and stylish for the fashion-forward suits' },
             { src: 'images/Arabic khammees design by Amor wedding collection for men.jpg', alt: 'Arabic khammees', category: 'traditionalwear', caption: 'Arabic khammees emirates dubai oman arabic' },
             { src: 'images/Arabic khammees design by Amor wedding collection for men.jpg', alt: 'Arabic khammees', category: 'traditionalwear', caption: 'Arabic khammees emirates dubai oman arabic' },
-            { src: 'images/Arabic khammees design by Amor wedding collection for men.jpg', alt: 'Arabic khammees', category: 'traditionalwear', caption: 'Arabic khammees emirates dubai oman arabic' },
+            // Add more items as needed
         ];
-    };
+        const filteredItems = filter === 'all' ? allItems : allItems.filter(item => item.category === filter);
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const items = filteredItems.slice(startIndex, endIndex);
+    
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Simulated delay
+    
+        return {
+            items,
+            hasMore: endIndex < filteredItems.length
+        };
+    }
 
-    const renderPortfolioItems = (items) => {
-        portfolioGrid.innerHTML = items.map((item, index) => `
-            <div class="portfolio-item" data-category="${item.category}" data-index="${portfolioItems.indexOf(item)}">
+    function renderPortfolioItems(items) {
+        const itemsHTML = items.map((item, index) => `
+            <div class="portfolio-item" data-category="${item.category}" data-index="${portfolioItems.length + index}">
                 <img src="${item.src}" alt="${item.alt}" class="portfolio-img">
                 <div class="portfolio-overlay">
                     <h3>${item.alt}</h3>
@@ -71,26 +88,51 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             </div>
         `).join('');
+        portfolioGrid.insertAdjacentHTML('beforeend', itemsHTML);
+        portfolioItems = portfolioItems.concat(items);
 
-        // Add click event listeners to portfolio items
-        document.querySelectorAll('.portfolio-item').forEach(item => {
+        document.querySelectorAll('.portfolio-item:not(.initialized)').forEach(item => {
             item.addEventListener('click', openGallery);
+            item.classList.add('initialized');
         });
-    };
+    }
 
-    
+    async function loadMoreItems() {
+        if (isLoading || !hasMoreItems) return;
 
+        isLoading = true;
+        loadingIndicator.style.display = 'block';
+        loadMoreBtn.style.display = 'none';
+
+        try {
+            const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+            const result = await fetchPortfolioItems(page, activeFilter);
+            renderPortfolioItems(result.items);
+            hasMoreItems = result.hasMore;
+            page++;
+        } catch (error) {
+            console.error('Error loading portfolio items:', error);
+        } finally {
+            isLoading = false;
+            loadingIndicator.style.display = 'none';
+            loadMoreBtn.style.display = hasMoreItems ? 'block' : 'none';
+        }
+    }
+
+    loadMoreBtn.addEventListener('click', loadMoreItems);
+
+    // Gallery functionality
     const openGallery = (e) => {
         const clickedItem = e.currentTarget;
         currentIndex = parseInt(clickedItem.dataset.index);
         updateGalleryImage();
         galleryModal.style.display = 'flex';
-        document.body.style.overflow = 'hidden'; // Prevent scrolling
+        document.body.style.overflow = 'hidden';
     };
 
     const closeGallery = () => {
         galleryModal.style.display = 'none';
-        document.body.style.overflow = ''; // Restore scrolling
+        document.body.style.overflow = '';
     };
 
     const updateGalleryImage = () => {
@@ -105,12 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateGalleryImage();
     };
 
-    // Event listeners
-    closeModal.addEventListener('click', closeGallery);
-    prevBtn.addEventListener('click', () => navigateGallery(-1));
-    nextBtn.addEventListener('click', () => navigateGallery(1));
-
-    // Swipe functionality
+    // Swipe functionality for gallery
     let touchStartX = 0;
     let touchEndX = 0;
 
@@ -124,30 +161,46 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const handleSwipe = () => {
-        if (touchEndX < touchStartX) navigateGallery(1); // Swipe left
-        if (touchEndX > touchStartX) navigateGallery(-1); // Swipe right
+        const swipeThreshold = 50; // Minimum distance for a swipe
+        if (touchEndX < touchStartX - swipeThreshold) navigateGallery(1); // Swipe left
+        if (touchEndX > touchStartX + swipeThreshold) navigateGallery(-1); // Swipe right
     };
+
+    // Keyboard navigation for gallery
+    document.addEventListener('keydown', (e) => {
+        if (galleryModal.style.display === 'flex') {
+            if (e.key === 'ArrowLeft') navigateGallery(-1);
+            if (e.key === 'ArrowRight') navigateGallery(1);
+            if (e.key === 'Escape') closeGallery();
+        }
+    });
+
+
+    closeModal.addEventListener('click', closeGallery);
+    prevBtn.addEventListener('click', () => navigateGallery(-1));
+    nextBtn.addEventListener('click', () => navigateGallery(1));
 
     // Filter functionality
     const filterButtons = document.querySelectorAll('.filter-btn');
     filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const filter = button.dataset.filter;
+        button.addEventListener('click', async () => {
+            const filter = button.getAttribute('data-filter');
             filterButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
 
-            const filteredItems = filter === 'all' 
-                ? portfolioItems 
-                : portfolioItems.filter(item => item.category === filter);
-            renderPortfolioItems(filteredItems);
+            portfolioGrid.innerHTML = '';
+            portfolioItems = [];
+            page = 1;
+            hasMoreItems = true;
+
+            await loadMoreItems();
         });
     });
 
-    // Initialize gallery
-    (async () => {
-        portfolioItems = await fetchPortfolioItems();
-        renderPortfolioItems(portfolioItems);
-    })();
+    // Initial load
+    loadMoreItems();
+
+    console.log("Portfolio functionality has been updated with a 'Load More' button.");
 
     // Testimonial Slider
     const testimonials = document.querySelectorAll('.testimonial-item');
@@ -251,14 +304,6 @@ document.addEventListener('DOMContentLoaded', () => {
             btnIcon.innerHTML = '<i class="fas fa-paper-plane"></i>';
         }
     });
-
-    // Newsletter Subscription (you may want to replace this with actual subscription logic)
-    // const newsletterForm = document.getElementById('newsletter-form');
-    // newsletterForm.addEventListener('submit', (e) => {
-    //     e.preventDefault();
-    //     alert('Thank you for subscribing to our newsletter!');
-    //     newsletterForm.reset();
-    // });
 
     // Lazy Loading Images
     const lazyImages = document.querySelectorAll('img[data-src]');

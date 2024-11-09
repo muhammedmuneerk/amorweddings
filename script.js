@@ -31,28 +31,123 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Portfolio Filtering
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const portfolioItems = document.querySelectorAll('.portfolio-item');
 
+
+    // Portfolio filtering and gallery //
+    const portfolioGrid = document.querySelector('.portfolio-grid');
+    const galleryModal = document.getElementById('gallery-modal');
+    const galleryImage = document.getElementById('gallery-image');
+    const imageCaption = document.querySelector('.image-caption');
+    const closeModal = document.querySelector('.close-modal');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+
+    let currentIndex = 0;
+    let portfolioItems = [];
+
+    // Fetch portfolio items (replace with your actual data)
+    const fetchPortfolioItems = async () => {
+        // Simulated API call
+        return [
+            { src: 'images/armorig-1.jpg', alt: 'Elegant Lace Gown', category: 'suits', caption: 'A timeless suits masterpiece' },
+            { src: 'images/armorig-2.jpg', alt: 'Classic Tuxedo', category: 'suits', caption: 'Sophisticated style for the modern suits' },
+            { src: 'images/armorig-3.jpg', alt: 'Romantic A-line Dress', category: 'suits', caption: 'Ethereal beauty for your special day' },
+            { src: 'images/armorig-4.jpg', alt: 'Wedding Accessories', category: 'suits', caption: 'The perfect finishing touches' },
+            { src: 'images/WhatsApp Image 2024-11-07 at 18.02.06_d7e791d8.jpg', alt: 'Modern Minimalist Gown', category: 'suits', caption: 'Sleek and sophisticated suits style' },
+            { src: 'images/WhatsApp Image 2024-11-07 at 18.02.07_e4f03702.jpg', alt: 'Contemporary Suit', category: 'suits', caption: 'Bold and stylish for the fashion-forward suits' },
+            { src: 'images/Arabic khammees design by Amor wedding collection for men.jpg', alt: 'Arabic khammees', category: 'traditionalwear', caption: 'Arabic khammees emirates dubai oman arabic' },
+            { src: 'images/Arabic khammees design by Amor wedding collection for men.jpg', alt: 'Arabic khammees', category: 'traditionalwear', caption: 'Arabic khammees emirates dubai oman arabic' },
+            { src: 'images/Arabic khammees design by Amor wedding collection for men.jpg', alt: 'Arabic khammees', category: 'traditionalwear', caption: 'Arabic khammees emirates dubai oman arabic' },
+        ];
+    };
+
+    const renderPortfolioItems = (items) => {
+        portfolioGrid.innerHTML = items.map((item, index) => `
+            <div class="portfolio-item" data-category="${item.category}" data-index="${portfolioItems.indexOf(item)}">
+                <img src="${item.src}" alt="${item.alt}" class="portfolio-img">
+                <div class="portfolio-overlay">
+                    <h3>${item.alt}</h3>
+                    <p>${item.caption}</p>
+                </div>
+            </div>
+        `).join('');
+
+        // Add click event listeners to portfolio items
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            item.addEventListener('click', openGallery);
+        });
+    };
+
+    
+
+    const openGallery = (e) => {
+        const clickedItem = e.currentTarget;
+        currentIndex = parseInt(clickedItem.dataset.index);
+        updateGalleryImage();
+        galleryModal.style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+    };
+
+    const closeGallery = () => {
+        galleryModal.style.display = 'none';
+        document.body.style.overflow = ''; // Restore scrolling
+    };
+
+    const updateGalleryImage = () => {
+        const item = portfolioItems[currentIndex];
+        galleryImage.src = item.src;
+        galleryImage.alt = item.alt;
+        imageCaption.textContent = item.caption;
+    };
+
+    const navigateGallery = (direction) => {
+        currentIndex = (currentIndex + direction + portfolioItems.length) % portfolioItems.length;
+        updateGalleryImage();
+    };
+
+    // Event listeners
+    closeModal.addEventListener('click', closeGallery);
+    prevBtn.addEventListener('click', () => navigateGallery(-1));
+    nextBtn.addEventListener('click', () => navigateGallery(1));
+
+    // Swipe functionality
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    galleryModal.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+
+    galleryModal.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    });
+
+    const handleSwipe = () => {
+        if (touchEndX < touchStartX) navigateGallery(1); // Swipe left
+        if (touchEndX > touchStartX) navigateGallery(-1); // Swipe right
+    };
+
+    // Filter functionality
+    const filterButtons = document.querySelectorAll('.filter-btn');
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
-            // Remove active class from all buttons
+            const filter = button.dataset.filter;
             filterButtons.forEach(btn => btn.classList.remove('active'));
-            // Add active class to clicked button
             button.classList.add('active');
 
-            const filterValue = button.getAttribute('data-filter');
-
-            portfolioItems.forEach(item => {
-                if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
+            const filteredItems = filter === 'all' 
+                ? portfolioItems 
+                : portfolioItems.filter(item => item.category === filter);
+            renderPortfolioItems(filteredItems);
         });
     });
+
+    // Initialize gallery
+    (async () => {
+        portfolioItems = await fetchPortfolioItems();
+        renderPortfolioItems(portfolioItems);
+    })();
 
     // Testimonial Slider
     const testimonials = document.querySelectorAll('.testimonial-item');

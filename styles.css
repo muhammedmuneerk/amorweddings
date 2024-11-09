@@ -786,6 +786,9 @@ nav {
     transition: all 0.3s ease; /* Smooth transition for the underline effect */
     text-decoration: underline; /* Add underline on hover */
 }
+.footer-bottom a:hover {
+    /* color: var(--accent-color); */
+}
 
 .footer-legal {
     list-style: none;
@@ -1004,6 +1007,3 @@ img.fade-in {
 
 
 
-.mmk {
-    text-decoration: none;
-}

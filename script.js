@@ -344,5 +344,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Footer year update
     const currentYear = new Date().getFullYear();
-    document.querySelector('.footer-bottom p').innerHTML = `© ${currentYear} Amor Weddings. All rights reserved. Created by MMK.`;
+    document.querySelector('.footer-bottom p').innerHTML = `<p>© ${currentYear} Amor Weddings. All rights reserved. Created by <a  href="https://muhammedmuneer.onrender.com"><b>MMK</a>.</b></p>`;
 });

@@ -596,6 +596,24 @@ nav {
     font-size: 1.2rem;
 }
 
+.info-item a {
+    color: inherit; /* Inherit the color from the parent element */
+    text-decoration: none; /* Remove underline */
+    margin-left: 20px; /* Adds space to the left outside the element */
+    transition: all 0.3s ease; /* Smooth transition for the underline effect */
+    text-decoration: underline; /* Add underline on hover */
+}
+
+.info-item a:hover {
+    color: inherit; /* Ensure no color change on hover */
+    text-decoration: none; /* Remove underline on hover */
+    color: var(--accent-color); /* Optionally, change the color on hover */
+}
+.info-item a:focus {
+    outline: none; /* Remove the default focus outline */
+    border-bottom: 2px solid var(--accent-color); /* Add a bottom border to simulate underline */
+}
+
 .social-icons {
     margin-top: 2rem;
     display: flex;
@@ -609,13 +627,36 @@ nav {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: var(--accent-color);
+    background-color: black;
     color: #fff;
     font-size: 1.2rem;
     transition: all 0.3s ease;
 }
 
 .social-icons a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.social-icons-g {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.social-icons-g a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--accent-color);
+    color: #fff;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.social-icons-g a:hover {
     transform: translateY(-3px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
@@ -739,6 +780,13 @@ nav {
     flex-wrap: wrap;
 }
 
+.footer-bottom a {
+    color: inherit; /* Inherit the color from the parent element */
+    text-decoration: none; /* Remove underline */
+    transition: all 0.3s ease; /* Smooth transition for the underline effect */
+    text-decoration: underline; /* Add underline on hover */
+}
+
 .footer-legal {
     list-style: none;
     display: flex;
@@ -855,6 +903,10 @@ img.fade-in {
         text-align: center;
     }
 
+    .social-icons {
+        justify-content: center;
+    }
+
     .footer-links ul {
         columns: 2;
         column-gap: 2rem;
@@ -947,4 +999,11 @@ img.fade-in {
 .load-more-btn {
     display: block;
     margin: 2rem auto;
+}
+
+
+
+
+.mmk {
+    text-decoration: none;
 }

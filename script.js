@@ -345,4 +345,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Footer year update
     const currentYear = new Date().getFullYear();
     document.querySelector('.footer-bottom p', 'footer-bottom b').innerHTML = `<p>© ${currentYear} Amor Weddings. All rights reserved. Created by <a  href="https://muhammedmuneer.onrender.com" href="mmk" ><b>MMK</a>.</b></p>`;
+
+    document.getElementById('hero-video').addEventListener('loadeddata', function() {
+        document.querySelector('.hero-spinner-overlay').classList.add('hidden-hero-spinner');
+    });
+    
 });
+

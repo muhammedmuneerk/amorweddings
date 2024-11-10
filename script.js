@@ -55,14 +55,18 @@ document.addEventListener('DOMContentLoaded', () => {
     async function fetchPortfolioItems(page, filter = 'all') {
         const itemsPerPage = 7;
         const allItems = [
-            { src: 'images/armorig-1.jpg', alt: 'Elegant Lace Gown', category: 'suits', caption: 'A timeless suits masterpiece' },
-            { src: 'images/armorig-2.jpg', alt: 'Classic Tuxedo', category: 'suits', caption: 'Sophisticated style for the modern suits' },
-            { src: 'images/armorig-3.jpg', alt: 'Romantic A-line Dress', category: 'suits', caption: 'Ethereal beauty for your special day' },
-            { src: 'images/armorig-4.jpg', alt: 'Wedding Accessories', category: 'suits', caption: 'The perfect finishing touches' },
-            { src: 'images/WhatsApp Image 2024-11-07 at 18.02.06_d7e791d8.jpg', alt: 'Modern Minimalist Gown', category: 'suits', caption: 'Sleek and sophisticated suits style' },
-            { src: 'images/WhatsApp Image 2024-11-07 at 18.02.07_e4f03702.jpg', alt: 'Contemporary Suit', category: 'suits', caption: 'Bold and stylish for the fashion-forward suits' },
-            { src: 'images/Arabic khammees design by Amor wedding collection for men.jpg', alt: 'Arabic khammees', category: 'traditionalwear', caption: 'Arabic khammees emirates dubai oman arabic' },
-            { src: 'images/Arabic khammees design by Amor wedding collection for men.jpg', alt: 'Arabic khammees', category: 'traditionalwear', caption: 'Arabic khammees emirates dubai oman arabic' },
+            { src: 'public/images/suits/suit-2.jpg', alt: 'Elegant Lace Gown', category: 'suits', caption: 'A timeless suits masterpiece' },
+            { src: 'public/images/traditionalwear/traditionalwear-1.jpg', alt: 'Arabic khammees', category: 'traditionalwear', caption: 'Arabic khammees emirates dubai oman arabic' },
+            { src: 'public/images/suits/suit-3.jpg', alt: 'Classic Tuxedo', category: 'suits', caption: 'Sophisticated style for the modern suits' },
+            { src: 'public/images/traditionalwear/traditionalwear-2.jpg', alt: 'Arabic khammees', category: 'traditionalwear', caption: 'Arabic khammees emirates dubai oman arabic' },
+            { src: 'public/images/suits/suit-4.jpg', alt: 'Romantic A-line Dress', category: 'suits', caption: 'Ethereal beauty for your special day' },
+            { src: 'public/images/traditionalwear/traditionalwear-3.jpg', alt: 'Arabic khammees', category: 'traditionalwear', caption: 'Arabic khammees emirates dubai oman arabic' },
+            { src: 'public/images/suits/suit-5.jpg', alt: 'Wedding Accessories', category: 'suits', caption: 'The perfect finishing touches' },
+            { src: 'public/images/traditionalwear/traditionalwear-4.jpg', alt: 'Arabic khammees', category: 'traditionalwear', caption: 'Arabic khammees emirates dubai oman arabic' },
+            { src: 'public/images/suits/suit-6.jpg', alt: 'Modern Minimalist Gown', category: 'suits', caption: 'Sleek and sophisticated suits style' },
+            { src: 'public/images/traditionalwear/traditionalwear-5.jpg', alt: 'Arabic khammees', category: 'traditionalwear', caption: 'Arabic khammees emirates dubai oman arabic' },
+            { src: 'public/images/suits/suit-7.jpg', alt: 'Contemporary Suit', category: 'suits', caption: 'Bold and stylish for the fashion-forward suits' },
+            { src: 'public/images/traditionalwear/traditionalwear-6.jpg', alt: 'Arabic khammees', category: 'traditionalwear', caption: 'Arabic khammees emirates dubai oman arabic' },
             // Add more items as needed
         ];
         const filteredItems = filter === 'all' ? allItems : allItems.filter(item => item.category === filter);

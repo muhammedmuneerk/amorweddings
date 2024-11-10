@@ -7,6 +7,7 @@
     --background-color: #fff;
     --font-primary: 'Playfair Display', serif;
     --font-secondary: 'Roboto', sans-serif;
+    --black-color: #000;
 }
 
 * {
@@ -354,6 +355,7 @@ nav {
     max-width: 100%;
     max-height: 80vh;
     object-fit: contain;
+    border-radius: 10px;
 }
 
 .image-caption {
@@ -374,6 +376,10 @@ nav {
     border: none;
 }
 
+.close-modal:hover {
+    color: var(--accent-color);
+}
+
 .nav-btn {
     position: absolute;
     top: 50%;
@@ -384,14 +390,23 @@ nav {
     padding: 10px;
     border: none;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .prev-btn {
     left: 15px;
 }
+.prev-btn:hover {
+    left: 15px;
+    color: var(--accent-color);
+}
 
 .next-btn {
     right: 15px;
+}
+.next-btn:hover {
+    right: 15px;
+    color: var(--accent-color);
 }
 
 /* Services Section Styles */
@@ -627,7 +642,7 @@ nav {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: black;
+    background-color: var(--accent-color);
     color: #fff;
     font-size: 1.2rem;
     transition: all 0.3s ease;
@@ -650,7 +665,7 @@ nav {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: var(--accent-color);
+    background-color: var(--primary-color);
     color: #fff;
     font-size: 1.2rem;
     transition: all 0.3s ease;
@@ -786,9 +801,11 @@ nav {
     transition: all 0.3s ease; /* Smooth transition for the underline effect */
     text-decoration: underline; /* Add underline on hover */
 }
-.footer-bottom a:hover {
-    /* color: var(--accent-color); */
+.footer-bottom b:hover {
+    color: #00ffff;
+    transition: color 0.3s ease
 }
+
 
 .footer-legal {
     list-style: none;

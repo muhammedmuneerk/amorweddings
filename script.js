@@ -53,20 +53,26 @@ document.addEventListener('DOMContentLoaded', () => {
     let portfolioItems = [];
 
     async function fetchPortfolioItems(page, filter = 'all') {
-        const itemsPerPage = 7;
+        const itemsPerPage = 8;
         const allItems = [
-            { src: 'public/images/suits/suit-2.jpg', alt: 'Elegant Lace Gown', category: 'suits', caption: 'A timeless suits masterpiece' },
-            { src: 'public/images/traditionalwear/traditionalwear-1.jpg', alt: 'Arabic khammees', category: 'traditionalwear', caption: 'Arabic khammees emirates dubai oman arabic' },
-            { src: 'public/images/suits/suit-3.jpg', alt: 'Classic Tuxedo', category: 'suits', caption: 'Sophisticated style for the modern suits' },
-            { src: 'public/images/traditionalwear/traditionalwear-2.jpg', alt: 'Arabic khammees', category: 'traditionalwear', caption: 'Arabic khammees emirates dubai oman arabic' },
-            { src: 'public/images/suits/suit-4.jpg', alt: 'Romantic A-line Dress', category: 'suits', caption: 'Ethereal beauty for your special day' },
-            { src: 'public/images/traditionalwear/traditionalwear-3.jpg', alt: 'Arabic khammees', category: 'traditionalwear', caption: 'Arabic khammees emirates dubai oman arabic' },
-            { src: 'public/images/suits/suit-5.jpg', alt: 'Wedding Accessories', category: 'suits', caption: 'The perfect finishing touches' },
-            { src: 'public/images/traditionalwear/traditionalwear-4.jpg', alt: 'Arabic khammees', category: 'traditionalwear', caption: 'Arabic khammees emirates dubai oman arabic' },
-            { src: 'public/images/suits/suit-6.jpg', alt: 'Modern Minimalist Gown', category: 'suits', caption: 'Sleek and sophisticated suits style' },
-            { src: 'public/images/traditionalwear/traditionalwear-5.jpg', alt: 'Arabic khammees', category: 'traditionalwear', caption: 'Arabic khammees emirates dubai oman arabic' },
-            { src: 'public/images/suits/suit-7.jpg', alt: 'Contemporary Suit', category: 'suits', caption: 'Bold and stylish for the fashion-forward suits' },
-            { src: 'public/images/traditionalwear/traditionalwear-6.jpg', alt: 'Arabic khammees', category: 'traditionalwear', caption: 'Arabic khammees emirates dubai oman arabic' },
+            { src: 'public/images/suits/suit-2.jpg', alt: 'Dapper Brown Suit', category: 'suits', caption: 'Retro Style with a Contemporary Edge' },
+            { src: 'public/images/traditionalwear/traditionalwear-1.jpg', alt: 'Kandura with Bisht', category: 'traditionalwear', caption: 'Traditional Arabian Kandura with Bisht' },
+            { src: 'public/images/suits/suit-3.jpg', alt: 'Regal Bandhgala Suit', category: 'suits', caption: ' Elevate Your Presence with Embroidered Elegance' },
+            { src: 'public/images/traditionalwear/traditionalwear-2.jpg', alt: 'Off-White Sherwani', category: 'traditionalwear', caption: 'Minimalist Style for the Contemporary Gentleman.' },
+            { src: 'public/images/suits/suit-4.jpg', alt: 'Black Mandarin-Collar Suit', category: 'suits', caption: 'The All-Black Mandarin Suit for Effortless Class' },
+            { src: 'public/images/traditionalwear/traditionalwear-3.jpg', alt: 'Ivory Majesty Sherwani', category: 'traditionalwear', caption: 'An embodiment of refined elegance' },
+            { src: 'public/images/suits/suit-5.jpg', alt: 'Two-Tone Blazer with Beige Accents', category: 'suits', caption: 'Embracing Contrast with a Bold Black and Beige Suit' },
+            { src: 'public/images/traditionalwear/traditionalwear-4.jpg', alt: 'Sublime Ivory Kurta Set', category: 'traditionalwear', caption: 'A timeless piece for the modern man.' },
+            { src: 'public/images/suits/suit-6.jpg', alt: 'Two-Tone Blazer with Beige Accents', category: 'suits', caption: 'Embracing Contrast with a Bold Black and Beige Suit' },
+            { src: 'public/images/traditionalwear/traditionalwear-5.jpg', alt: 'Noir Luxe Kurta', category: 'traditionalwear', caption: 'A statement of bold elegance.' },
+            { src: 'public/images/suits/suit-7.jpg', alt: 'Black Sherwani', category: 'suits', caption: 'Elegance with a Touch of Embroidery.' },
+          //  { src: 'public/images/traditionalwear/traditionalwear-6.jpg', alt: 'Classic White Kurta Pajama', category: 'traditionalwear', caption: 'Embrace Timeless Tradition with a Modern Twist' }, //
+            { src: 'public/images/suits/suit-8.jpg', alt: 'Midnight Elegance Tuxedo', category: 'suits', caption: 'classic sophistication meets modern flair.' },
+            { src: 'public/images/traditionalwear/traditionalwear-7.jpg', alt: 'Elegant White Sherwani', category: 'traditionalwear', caption: 'Timeless Sophistication with Intricate Embroidery' },
+           // { src: 'public/images/suits/suit-9.jpg', alt: 'Black Majesty Sherwani', category: 'suits', caption: 'A Timeless Fusion of Tradition and Modern Elegance.' }, //
+            { src: 'public/images/traditionalwear/traditionalwear-8.jpg', alt: 'Regal Kurta Ensemble', category: 'traditionalwear', caption: 'A look that exudes sophistication and grace.' },
+            { src: 'public/images/suits/suit-10.jpg', alt: 'Onyx Regal Sherwani', category: 'suits', caption: 'Exude Unmatched Sophistication with the Onyx Sherwani' },
+            { src: 'public/images/traditionalwear/traditionalwear-9.jpg', alt: 'Royal Ethnic Kurta-Dhoti', category: 'traditionalwear', caption: 'Embracing Cultural Heritage with Modern Sophistication' },
             // Add more items as needed
         ];
         const filteredItems = filter === 'all' ? allItems : allItems.filter(item => item.category === filter);

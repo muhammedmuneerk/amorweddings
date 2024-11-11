@@ -66,10 +66,10 @@ document.addEventListener('DOMContentLoaded', () => {
             { src: 'public/images/suits/suit-6.jpg', alt: 'Two-Tone Blazer with Beige Accents', category: 'suits', caption: 'Embracing Contrast with a Bold Black and Beige Suit' },
             { src: 'public/images/traditionalwear/traditionalwear-5.jpg', alt: 'Noir Luxe Kurta', category: 'traditionalwear', caption: 'A statement of bold elegance.' },
             { src: 'public/images/suits/suit-7.jpg', alt: 'Black Sherwani', category: 'suits', caption: 'Elegance with a Touch of Embroidery.' },
-            { src: 'public/images/traditionalwear/traditionalwear-6.jpg', alt: 'Classic White Kurta Pajama', category: 'traditionalwear', caption: 'Embrace Timeless Tradition with a Modern Twist' }, 
+          //  { src: 'public/images/traditionalwear/traditionalwear-6.jpg', alt: 'Classic White Kurta Pajama', category: 'traditionalwear', caption: 'Embrace Timeless Tradition with a Modern Twist' }, //
             { src: 'public/images/suits/suit-8.jpg', alt: 'Midnight Elegance Tuxedo', category: 'suits', caption: 'classic sophistication meets modern flair.' },
             { src: 'public/images/traditionalwear/traditionalwear-7.jpg', alt: 'Elegant White Sherwani', category: 'traditionalwear', caption: 'Timeless Sophistication with Intricate Embroidery' },
-            { src: 'public/images/suits/suit-9.jpg', alt: 'Black Majesty Sherwani', category: 'suits', caption: 'A Timeless Fusion of Tradition and Modern Elegance.' },
+          //  { src: 'public/images/suits/suit-9.jpg', alt: 'Black Majesty Sherwani', category: 'suits', caption: 'A Timeless Fusion of Tradition and Modern Elegance.' }, //
             { src: 'public/images/traditionalwear/traditionalwear-8.jpg', alt: 'Regal Kurta Ensemble', category: 'traditionalwear', caption: 'A look that exudes sophistication and grace.' },
             { src: 'public/images/suits/suit-10.jpg', alt: 'Onyx Regal Sherwani', category: 'suits', caption: 'Exude Unmatched Sophistication with the Onyx Sherwani' },
             { src: 'public/images/traditionalwear/traditionalwear-9.jpg', alt: 'Royal Ethnic Kurta-Dhoti', category: 'traditionalwear', caption: 'Embracing Cultural Heritage with Modern Sophistication' },
